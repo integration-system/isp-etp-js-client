@@ -1,15 +1,15 @@
-interface Codec {
+export interface Codec {
     marshal(data: any): string,
 
     unmarshal(data: string): any
 }
 
-class JsonCodec implements Codec {
+export class JsonCodec implements Codec {
     marshal(data: any): string {
         return JSON.stringify(data)
     }
 
-    unmarshal(data: string): any {
+    unmarshal(data: string): (any) {
         return JSON.parse(data)
     }
 }

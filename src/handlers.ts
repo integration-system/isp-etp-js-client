@@ -1,4 +1,4 @@
-interface Handlers {
+export interface Handlers {
     subs: { [type: string]: (data: any) => void };
 
     on(type: string, f: (data: any) => void): void
@@ -8,7 +8,7 @@ interface Handlers {
     get(type: string): ((data: any) => void) | null
 }
 
-class HandlersImpl implements Handlers {
+export class HandlersImpl implements Handlers {
     subs: { [p: string]: (data: any) => void } = {};
 
     get(type: string): ((data: any) => void) | null {
