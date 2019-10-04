@@ -15,6 +15,6 @@ declare class EtpClient {
     off(type: string): EtpClient;
     emit(type: string, payload: any, ackTimeoutMs?: number): Promise<any>;
     connect(): EtpClient;
-    close(): EtpClient;
+    close(code?: number, reason?: string): EtpClient;
 }
 export default EtpClient;

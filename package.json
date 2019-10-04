@@ -1,11 +1,12 @@
 {
   "name": "isp-etp-js-client",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Event transport protocol library for Java Script",
   "main": "lib/index.js",
   "scripts": {
     "type-check": "tsc --noEmit",
     "type-check:watch": "npm run type-check -- --watch",
+    "publish": "yarn build && npm publish ./lib",
     "build": "npm run build:types && npm run build:js",
     "build:types": "tsc --emitDeclarationOnly",
     "build:js": "babel src --out-dir lib --extensions \".ts,.tsx\" --source-maps inline"
