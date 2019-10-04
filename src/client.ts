@@ -1,5 +1,5 @@
 import {defaultOptions, Options} from "./options";
-import {Codec} from "./codec";
+import {Codec, JsonCodec} from "./codec";
 import {HandlersImpl, Handlers} from "./handlers";
 
 const bodySplitter = '||';
@@ -80,14 +80,14 @@ class EtpClient {
         if (!this.conn || this.conn.readyState !== this.conn.OPEN) {
             return Promise.reject("connection not initialized")
         }
-        let data = encodeEvent(this.options.codec, type, payload);
+        let data = encodeEvent(this.options.codec || new JsonCodec(), type, payload);
         this.conn.send(data);
         return Promise.resolve()
     }
 
     connect(): EtpClient {
         let url = this.url;
-        if (Object.keys(this.options.params).length > 0) {
+        if (this.options.params && Object.keys(this.options.params).length > 0) {
             url = "?" + encodeGetParams(this.options.params);
         }
         const ws = new WebSocket(url);
@@ -102,7 +102,7 @@ class EtpClient {
         };
         ws.onmessage = message => {
             try {
-                const event = decodeEvent(this.options.codec, message.data);
+                const event = decodeEvent(this.options.codec || new JsonCodec(), message.data);
                 const handler = this.handlers.get(event.type);
                 if (handler) {
                     handler(event.payload);
@@ -115,9 +115,9 @@ class EtpClient {
         return this;
     }
 
-    close(): EtpClient {
+    close(code?: number, reason?: string): EtpClient {
         if (this.conn) {
-            this.conn.close();
+            this.conn.close(code, reason);
             this.conn = undefined;
         }
         return this;

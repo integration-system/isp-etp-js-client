@@ -1,8 +1,8 @@
 import {Codec, JsonCodec} from './codec'
 
 export interface Options {
-    codec: Codec;
-    params: object;
+    codec?: Codec;
+    params?: object;
 }
 
 export function defaultOptions(): Options {
