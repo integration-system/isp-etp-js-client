@@ -88,7 +88,7 @@ class EtpClient {
     connect(): EtpClient {
         let url = this.url;
         if (this.options.params && Object.keys(this.options.params).length > 0) {
-            url = "?" + encodeGetParams(this.options.params);
+            url = url + "?" + encodeGetParams(this.options.params);
         }
         const ws = new WebSocket(url);
         ws.onopen = () => {
