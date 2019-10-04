@@ -6,7 +6,7 @@
 ```ecmascript 6
 import ws from "isp-etp-js-client";
 
-const cli = ws("ws://10.250.102.19:7771/isp-etp/", {
+const cli = ws("ws://127.0.0.1:7777/isp-etp/", {
         params: {
             token: token, //will add to GET params in initial request
         }
