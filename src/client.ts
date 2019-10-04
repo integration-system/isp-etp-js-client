@@ -9,16 +9,22 @@ function encodeGetParams(params: object): string {
 }
 
 function encodeEvent(codec: Codec, type: string, payload: any): string {
-    const data = codec.marshal(payload);
+    let data = "";
+    if (payload) {
+        data = codec.marshal(payload);
+    }
     return type + bodySplitter + data;
 }
 
-function decodeEvent(codec: Codec, data: string): { type: string, payload: any } {
+function decodeEvent(codec: Codec, data: string): { type: string, payload?: any } {
     let parts = data.split(bodySplitter, 2);
     if (parts.length < 2) {
         throw "invalid message received. Splitter || expected";
     }
-    const payload = codec.unmarshal(parts[1]);
+    let payload = undefined;
+    if (parts[1]) {
+        payload = codec.unmarshal(parts[1]);
+    }
     return {
         type: parts[0], payload: payload,
     }
