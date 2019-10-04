@@ -3,7 +3,7 @@
 * Design API inspired by [socket.io](https://socket.io/docs/client-api/#IO).
 * event payload marshaling/unmarshaling to/from `json`
 
-```ecmascript 6
+```javascript
 import ws from "isp-etp-js-client";
 
 const cli = ws("ws://127.0.0.1:7777/isp-etp/", {
