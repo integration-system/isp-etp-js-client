@@ -3,6 +3,12 @@
 * Design API inspired by [socket.io](https://socket.io/docs/client-api/#IO).
 * event payload marshaling/unmarshaling to/from `json`
 
+## Install
+```bash
+yarn insatll isp-etp-js-client
+```
+
+## Example
 ```javascript
 import ws from "isp-etp-js-client";
 
@@ -32,3 +38,7 @@ cli.connect();
 
 cli.close() //call to close connection, you can provides two params: code: number, reason: string
 ```
+
+## Note
+* `v1` of client not compatible with `v2` server
+* `v2` js client currently not support emitWithAck/onWithAck

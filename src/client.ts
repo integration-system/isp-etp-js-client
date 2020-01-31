@@ -13,17 +13,17 @@ function encodeEvent(codec: Codec, type: string, payload: any): string {
     if (payload) {
         data = codec.marshal(payload);
     }
-    return type + bodySplitter + data;
+    return `${type}${bodySplitter}0${bodySplitter}${data}`;
 }
 
 function decodeEvent(codec: Codec, data: string): { type: string, payload?: any } {
-    let parts = data.split(bodySplitter, 2);
-    if (parts.length < 2) {
+    let parts = data.split(bodySplitter, 3);
+    if (parts.length < 3) {
         throw "invalid message received. Splitter || expected";
     }
     let payload = undefined;
-    if (parts[1]) {
-        payload = codec.unmarshal(parts[1]);
+    if (parts[2]) {
+        payload = codec.unmarshal(parts[2]);
     }
     return {
         type: parts[0], payload: payload,
