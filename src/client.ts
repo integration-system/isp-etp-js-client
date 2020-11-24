@@ -19,10 +19,21 @@ function encodeEvent(codec: Codec, type: string, payload: any): string {
 function split(value: string, bodySplitter: string, limit: number) : string[] {
     let res = []
     let prevIndex = 0
+
     for (let i = 1; i < limit+1; i++) {
-        let currIndex = value.indexOf(bodySplitter, prevIndex)
-        res.push(value.substring(prevIndex, i != limit ? currIndex : value.length))
-        prevIndex = currIndex+2
+        let currIndex : number
+
+        if (i !== limit) {
+            currIndex = value.indexOf(bodySplitter, prevIndex)
+            if (currIndex === -1) {
+                return res
+            }
+        } else {
+            currIndex = value.length
+        }
+
+        res.push(value.substring(prevIndex, currIndex))
+        prevIndex = currIndex + bodySplitter.length
     }
 
     return res
