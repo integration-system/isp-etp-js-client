@@ -16,8 +16,31 @@ function encodeEvent(codec: Codec, type: string, payload: any): string {
     return `${type}${bodySplitter}0${bodySplitter}${data}`;
 }
 
+function split(value: string, bodySplitter: string, limit: number) : string[] {
+    let res = []
+    let prevIndex = 0
+
+    for (let i = 1; i < limit+1; i++) {
+        let currIndex : number
+
+        if (i !== limit) {
+            currIndex = value.indexOf(bodySplitter, prevIndex)
+            if (currIndex === -1) {
+                return res
+            }
+        } else {
+            currIndex = value.length
+        }
+
+        res.push(value.substring(prevIndex, currIndex))
+        prevIndex = currIndex + bodySplitter.length
+    }
+
+    return res
+}
+
 function decodeEvent(codec: Codec, data: string): { type: string, payload?: any } {
-    let parts = data.split(bodySplitter, 3);
+    let parts = split(data, bodySplitter, 3);
     if (parts.length < 3) {
         throw "invalid message received. Splitter || expected";
     }
