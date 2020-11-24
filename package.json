@@ -1,6 +1,6 @@
 {
   "name": "isp-etp-js-client",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Event transport protocol library for Java Script",
   "main": "lib/index.js",
   "scripts": {
