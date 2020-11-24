@@ -13,6 +13,7 @@ export class HandlersImpl implements Handlers {
 
     get(type: string): ((data: any) => void) | null {
         const h = this.subs[type];
+        // @ts-ignore
         return h ? h : null
     }
 
